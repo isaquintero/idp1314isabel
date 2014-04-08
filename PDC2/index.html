@@ -1,0 +1,77 @@
+<html>
+<head>
+	<title>T&iacute;tulo del trabajo</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+</head>
+<body>
+<div style='display:table-row; padding: 10px;'>
+  <div style='float: left; width=20%; padding:10px;'>
+  <img src='./files/logo.png'/>
+  </div>
+  <div style='float: left;padding:10px'>
+  <ul>
+    <li><b>M&oacute;dulo:</b> <i>Sistemas Operativos</i></li>
+    <li><b>T&iacute;tulo del trabajo</b> <i>PDC WinServer</i></li>
+    <li><b>Componentes del grupo:</b> <i>Isabel Quintero Sánchez</i></li>
+    <li><b>Curso Acad&eacute;mico:</b> <i>2013/2014</i></li>
+    <li><b>Fecha de entrega:</b> <i>8 de Abril de 2014</i></li>
+  </ul>
+  </div>
+</div>
+<div style='float: clear;background-color: #eeeeee; border:2px solid; border-radius:10px; padding: 10px;'>
+<a href='#bloque1'> Directorio Activo</a> | <a href='#bloque2'>Usuarios del dominio</a> | <a href='#final'>Equipos del dominio</a>
+</div>
+<h1><a id='bloque1'> Directorio Activo</a></h1>
+
+<p>Instalamos Windows 2008 Server Enterprise y como servidores DNS pondremos al propio Windows2008Server
+ (127.0.0.1), y a FRY (172.16.1.1).</p>
+ <img border="2px" src="./files/dns2008.png"/>
+ 
+<p><b>Controlador de dominio</b></p>
+
+<p>Instalamos el DA(Directorio Activo) para guardar la información de nuestro dominio.Después,
+como cada PDC se identifica con su nombre de dominio, el cuál debe ser único, elegiremos un nombre corto para el nuestro.
+("QUINTERO1W.IDP") </p>
+<img border="2px" src="./files/dominio.png"/>
+
+<h1><a id='bloque2'>Usuarios del dominio</a></h1>
+
+<p>Crear los siguientes grupos de dominio, y usuarios de dominio:
+
+    <li>El grupo "jedi", con los usuarios: "yoda,", "obiwan" y "quigon"</li>
+    <li>El grupo "sith", con los usuarios: "emperador", "vader", "maul"</li>
+</p>
+
+<p>Primero creamos los grupos</p>
+<img border="2px" src="./files/jedi.png"/>
+<img border="2px" src="./files/sith.png"/>
+
+<p>Y, en segundo lugar unimos los usuarios a sus respectivos grupos.</p>
+<img border="2px" src="./files/grupo1.png"/>
+<img border="2px" src="./files/grupo2.png"/>
+
+
+<h1><a id='final'>Equipos del dominio</a></h1>
+
+<p>Instalamos una MV (W7 Enterprise) y luego la clonamos que actuarán de clientes o equipos del dominio. </p>
+<img border="2px" src="./files/clonar.png"/>
+
+<p>Cada cliente Windows7 debe tener un nombre de equipo sencillo. Para el primero: "Quintero2a" y para el segundo: "Quintero2b"</p>
+<img border="2px" src="./files/netbios1.png"/>
+<img border="2px" src="./files/netbios2.png"/>
+
+<p>El cliente debe tener como DNS1 la IP del PDC, y como DNS2 a otro servidor DNS (como por ejemplo a FRY 172.16.1.1).</p>
+<img border="2px" src="./files/dnsw7.png"/>
+<img border="2px" src="./files/dnsclonada.png"/>
+
+<p>Ahora vamos a unir el equipo cliente al dominio.</p>
+<img border="2px" src="./files/unir.png"/>
+<img border="2px" src="./files/unir2.png"/>
+
+<p><b>Hacemos las comprobaciones.</b></p>
+<img border="2px" src="./files/comprobar1.png"/>
+<img border="2px" src="./files/comprobar2.png"/>
+<img border="2px" src="./files/comprobar3.png"/>
+
+</body>
+</html>
