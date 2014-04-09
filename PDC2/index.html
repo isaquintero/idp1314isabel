@@ -20,7 +20,8 @@
 </div>
 <div style='float: clear;background-color: #eeeeee; border:2px solid; border-radius:10px; padding: 10px;'>
 <a href='#bloque1'> Directorio Activo</a> | <a href='#bloque2'>Usuarios del dominio</a> | <a href='#final'>Equipos del dominio</a>
-</div>
+| <a href='#perfil'>Perfiles móviles y obligatorios </a> | <a href='#tiempo'>Control de tiempo</a></div>
+
 <h1><a id='bloque1'> Directorio Activo</a></h1>
 
 <p>Instalamos Windows 2008 Server Enterprise y como servidores DNS pondremos al propio Windows2008Server
@@ -72,6 +73,61 @@ como cada PDC se identifica con su nombre de dominio, el cuál debe ser único, 
 <img border="2px" src="./files/comprobar1.png"/>
 <img border="2px" src="./files/comprobar2.png"/>
 <img border="2px" src="./files/comprobar3.png"/>
+
+<h1><a id='perfil'>Perfiles móviles y obligatorios</a></h1>
+
+<p>Creamos las siguientes carpetas, que usaremos para guardar los perfiles:
+
+    <li>C:\perfiles$\obiwan</li>
+    <li>C:\perfiles$\yoda</li>
+    <li>C:\perfiles$\quigon</li>
+    <li>C:\perfiles$\sith</li>
+</p>
+<img border="2px" src="./files/carpetas.png"/>
+<p>Creamos una carpeta compartida llamada <b>Perfiles</b> y compartirla
+con el nombre <b>"Perfiles$"</b>; a continuación pulsaremos sobre el botón "Permisos" y hacemos
+que el usuario "Todos" tenga los permisos "Control Total", "Cambiar" y "Leer" para que cada usuario pueda grabar su perfil en
+su carpeta, de ahí el hecho de incluir el "$" en el nombre asignado al recurso para que no sea
+visible por los usuarios, porque debemos tener en cuenta que cualquier usuario podría grabar
+lo que quisiera en la raíz de la carpeta "Perfiles" si sabe de su existencia; esto nos generaría un
+grave problema de seguridad.</p>
+
+<img border="2px" src="./files/perfiles1.png"/>
+<img border="2px" src="./files/permisos1.png"/>
+
+<p>Crear perfiles móviles para los <b>"jedi"</b>. Modificamos los usuarios "<b>jedis"</b>, para que cada uno apunte su ruta de perfil. 
+De esta forma dichos usuarios, tendrán perfiles móviles.</p>
+
+<p align="center"><b><i>YODA</i></b></p>
+<img border="2px" src="./files/yoda.png"/>
+<img border="2px" height="250px" src="./files/yoda2.png"/>
+
+<p align="center"><b><i>OBIWAN</i></b><br/>
+<img align="center" border="2px" src="./files/obiwan.png"/></p>
+
+<p align="center"><b><i>QUIGON</i></b></p>
+<img border="2px" src="./files/quigon.png"/>
+<img border="2px" height="250px" src="./files/quigon2.png"/>
+
+<p>Modificar todos los usuario <b>"sith"</b> para que apunten al mismo perfil. Todos los usuarios del grupo <b>"sith"</b> tendrán perfiles obligatorios.</p>
+
+<img border="2px" src="./files/sithobli.png"/>
+<img border="2px" src="./files/sith2.png"/>
+
+<h1><a id='tiempo'>Control del tiempo</a></h1>
+
+<p><li>Los "jedi" sólo pueden acceder de 08:00 a 14:00</li></p>
+<img border="2px" src="./files/horaY.png"/>
+<img border="2px" src="./files/horaO.png"/>
+<img border="2px" src="./files/horaQ.png"/>
+<p><li>Los "sith" sólo pueden acceder de 14:00 a 20:00</li></p>
+<img border="2px" width="350px" src="./files/horaM.png"/>
+<img border="2px" src="./files/horaE.png"/>
+<img border="2px" src="./files/horaV.png"/>
+
+<p>Y comprobamos que efectivamente,al intentar entrar en algun usuario fuera de su hora programada no nos deja entrar.</p>
+<img border="2px" src="./files/restriccion.png"/>
+<img border="2px" src="./files/error.png"/>
 
 </body>
 </html>
