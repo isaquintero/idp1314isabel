@@ -1,0 +1,123 @@
+<html>
+<head>
+	<title>Instalación Desantendida</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+</head>
+<body>
+<div id="cabecera" style='display:table-row; padding: 10px;'>
+  <div style='float: left; width=20%; padding:10px;'>
+  <img src='./files/logo.png'/>
+  </div>
+  <div style='float: left;padding:10px'>
+  <ul>
+    <li><b>M&oacute;dulo:</b> <i>Sistemas Operativos</i></li>
+    <li><b>T&iacute;tulo del trabajo</b> <i>Instalación Desatendida.</i></li>
+    <li><b>Componentes del grupo:</b> <i>Iván José Hdez Regalado e Isabel Quintero Sánchez</i></li>
+    <li><b>Curso Acad&eacute;mico:</b> <i>2013/2014</i></li>
+    <li><b>Fecha de entrega:</b> <i>20 de Mayo de 2014</i></li>
+  </ul>
+  </div>
+</div>
+<div align="center" style='float: clear;background-color: #eeeeee; border:2px solid; border-radius:10px; padding: 10px;'>
+<a href='#bloque1'>Instalar los fuentes de debian-installer</a> | <a href='#bloque2'>Instalar dependencias incumplidas de debian-installer</a> | <a href='#final'>Personalizando el instalador</a>
+| <a href='#bloque3'>Generar la imagen</a> | <a href='#bloque4'>Creando nuestro preseed.cfg</a> | <a href='#bloque5'>Modificando el initrd</a>
+| <a href='#bloque6'>Comprobación de la ISO</a></div>
+
+<div style='float:right;bottom:10px;right:10px;background-color: #eeeeee; border:2px solid; border-radius:10px; padding: 10px;position:fixed'>
+<p align="center" ><a href='#cabecera'><b>Cabecera</b></a></p>
+</div>
+
+<h1><a id='bloque1'>Instalar los fuentes de debian-installer</a></h1>
+<ol type="I">
+<li><p>Como no contamos con el paquete 'debian-installer', lo instalamos mediante el comando:<i>apt-get source debian-intaller.</i></p>
+<img width="600px" height="500px"src='./files/2.png'/><br/><br/></li>
+<li>Nos dará un error y tendremos que instalar primero el dpkg-dev.<br/><br/>
+<img width="600px" height="500px"src='./files/3.png'/><br/><br/>
+<img width="600px" height="500px"src='./files/4.png'/><br/><br/>
+</p></li>
+</ol>
+<hr/>
+<h1><a id='bloque2'>Instalar dependencias incumplidas de debian-installer</a></h1>
+
+<ol type="I">
+<li><p>Para poder usar debian-installer, debemos hacerlo desde un sistema que use repositorios inestables.
+Tenemos que comprobar los paquetes instalados en el sistema con una lista de las dependencias de nuestro paquete, 
+luego se mostrará en pantalla las dependencias incumplidas. Todo esto mediante el comando <i>dpkg-checkbuilddeps</i>, que
+se realizará desde el directorio raíz de debian-installer.</p>
+<img width="600px" height="500px"src='./files/5.png'/><br/><br/></li>
+<li><p>Después de obtener la lista, procedemos a instalar los paquetes desatendidos mediante el comando <i>apt-get install
+</i>seguido del nombre del paquete que queremos instalar.</p>
+<img width="600px" height="500px"src='./files/6.png'/><br/><br/></li>
+<li><p>Finalmente,completamos el paquete debian-installer con los udebs requeridos para cada imagen desde el directorio raiz 
+del instalador, ejecutando el comando <i>dpkg-buildpackage</i>.</p>
+<img src='./files/7.png'/><br/><br/></li>
+</ol>
+<hr/>
+<h1><a id='final'>Personalizando el instalador.</a></h1>
+<ol type="I">
+<li>
+<p>Entramos en el fichero de configuración <i>build/config/x86.cfg</i> para cambiar el path en el cual el instalador busca la imagen
+y modificamos la línea 14, la cual contiene: <i><b>SPLASH_PNG=boot/x86/pics/joy.png</b></i></p>
+<img width="600px" height="500px"src='./files/8.png'/><br/><br/></li></ol>
+<hr/>
+<h1><a id='bloque3'>Generar la imagen.</a></h1>
+
+<ol type="I">
+<li><p>Una vez instaladas las dependencias y elegidos los repositorios deseados, lo que queda es generar la imagen. 
+Para ello se debe tener en cuenta la arquitectura y el tipo. Para obtener una lista de todas las posibles combinaciones 
+de arquitecturas y tipos, basta con utilizar el comando: <i>make</i>.</p>
+<img width="600px" height="500px"src='./files/9.png'/><br/><br/></li>
+<li><p>Una vez elegidas las opciones, hay que generar la imagen, será generada en el directorio <i>build/dest. </i>
+Se puede crear una imagen mini-ISO con solo el netboot initrd en ella. Por ejemplo, el comando <i>make build_netboot</i> creará una imagen en build/dest/netboot/mini.iso, usando isolinux. </p>
+<img width="600px" height="500px"src='./files/10.png'/><br/><br/></li>
+</ol>
+<hr/>
+<h1><a id='bloque4'>Creando nuestro preseed.cfg</a></h1>
+
+<ol type="I">
+<li><p>La preconfiguración ofrece un mecanismo para responder a preguntas realizadas durante la instalación sin tener 
+que introducir manualmente las respuestas mientras ésta se ejecuta. Esto hace posible que se automaticen 
+la mayoría de las instalaciones e incluso ofrece funcionalidades que no están disponibles durante una instalación normal. 
+Para ello se crea un archivo preseed.cfg, en el cual se incluirán todas las opciones a automatizar. </p>
+<img src='./files/11.png'/><br/><br/>
+<img width="600px" height="500px"src='./files/12.png'/><br/><br/>
+<img width="600px" height="500px"src='./files/13.png'/><br/><br/>
+<img width="600px" height="500px"src='./files/14.png'/><br/><br/></li>
+<li><p> Tendremos que editar el archivo de configuración ubicado en installer/build/config/common. 
+En el ubicaremos la variable PRESEED y le especificaremos el directorio donde se encuentra nuestro archivo preseed.cfg: 
+<b>PRESEED = /home/<user>/preseed.cfg</b></p>
+<img width="600px" height="500px"src='./files/15.png'/><br/><br/></li>
+</ol>
+<hr/>
+<h1><a id='bloque5'>Modificando el initrd</a></h1>
+
+<ol type="I">
+<li><p>Las imágenes ISO no se pueden modificar una vez creadas, por lo tanto, la montamos en un directorio,
+ y luego copiamos su contenido a otro</p>
+ <img width="600px" height="500px"src='./files/16.png'/><br/><br/>
+ <img src='./files/17.png'/><br/><br/></li>
+ <li><p>El paso siguiente es modificar el initrd. Para ello, ingresaremos la siguiente secuencia de comandos:</p>
+ <img src='./files/18.png'/><br/><br/>
+ <img src='./files/19.png'/><br/><br/>
+ <img src='./files/20.png'/><br/><br/></li>
+ <li><p>Luego, para que el directorio cd/ quede listo para convertirse en una imagen ISO, tendremos que actualizar el md5sum.txt</p>
+<img src='./files/22.png'/><br/></li>
+
+<li><p>Lo que resta ahora es generar la imagen ISO, y que esta sea booteable.</p>
+<ol type="1">
+<li>Si tenemos instalado el comando mkisofs haremos el siguiente comando:<img src='./files/23.png'/><br/><br/></li>
+<li>En otro caso también no sirve el comando genisoimage:<img src='./files/24.png'/><br/><br/></li>
+</ol>
+</li>
+</ol>
+<hr/>
+<h1><a id='bloque6'>Comprobación de la ISO</a></h1>
+<ol type="I">
+<li><p>Cogemos la ISO creada y comprobamos en una MV si se instala correctamente.</p>
+<img width="600px" height="500px"src='./files/25.png'/><br/><br/>
+<img width="600px" height="500px"src='./files/26.png'/><img width="600px" height="500px"src='./files/29.png'/><br/><br/>
+<img width="600px" height="500px"src='./files/30.png'/><img width="600px" height="500px"src='./files/31.png'/><br/><br/></li>
+</ol>
+<hr/>
+</body>
+</html>
