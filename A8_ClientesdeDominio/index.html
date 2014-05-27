@@ -1,0 +1,101 @@
+<html>
+<head>
+	<title>T&iacute;tulo del trabajo</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+</head>
+<body>
+<div style='display:table-row; padding: 10px;'>
+  <div style='float: left; width=20%; padding:10px;'>
+  <img src='./files/logo.png'/>
+  </div>
+  <div style='float: left;padding:10px'>
+  <ul>
+    <li><b>M&oacute;dulo:</b> <i>Sistemas Operativos</i></li>
+    <li><b>T&iacute;tulo del trabajo</b> <i>A8: Clientes de dominio</i></li>
+    <li><b>Componentes del grupo:</b> <i>Isabel Quintero</i></li>
+    <li><b>Curso Acad&eacute;mico:</b> <i>2013/2014</i></li>
+    <li><b>Fecha de entrega:</b> <i>28 de Mayo de 2014</i></li>
+  </ul>
+  </div>
+</div>
+<div style='float: clear;background-color: #eeeeee; border:2px solid; border-radius:10px; padding: 10px;'>
+<a href='#bloque1'>Lecturas</a> | <a href='#bloque2'>Configurar clientes</a> | <a href='#final'>Unirse al dominio</a>
+| <a href='#comprobar'>Comprobación</a></div>
+<h1><a id='bloque1'>Lecturas</a></h1>
+
+<p>Para realizar esta tarea, consultamos la documentación proporcionada por el profesor. En el PDF hay dos formas
+de hacerlo:
+<ul>
+  <li>Usando comandos.</li>
+  <li>Usando LikeWise.</li>
+</ul><br/>
+En este caso nosotros hemos elegido utilizar el Likewise en el SO Lubuntu, versión 14.04, nombre Trusty Thar.</p>
+
+<img border="1px" src="./files/1.png"/>
+
+<h1><a id='bloque2'>Configurar clientes</a></h1>
+
+<p>Debemos tener en cuenta varios aspectos en la configuración del cliente Lubuntu:
+<ul>
+<li>La fecha/hora del sistema debe sincronizarse con el PDC.</li>
+<li>GNU/Linux y PDC, deben estar en la misma red, por lo que es aconsejable 
+configurar la red de las máquinas virtuales en modo "puente".</li><br/>
+<img border="1px" src="./files/14.png"/>
+<img border="1px" src="./files/15.png"/>
+<li>Los serviores deben tener la configuración de red estática.</li>
+</ul>
+
+</p>
+
+<p><b>Configuración de red de los clientes.</b></p>
+
+<p>Para configurar los DNS en una máquina Debian/Ubuntu, podemos hacer uso del propio 
+fichero de configuración de red <i>/etc/network/interfaces</i>.</p>
+<img border="1px" src="./files/6.png"/>
+
+<p>Para comprobar si la resolución de nombres (Configuracion de los servidores DNS) 
+está funcionando correctamente hacemos una prueba con el siguiente comando:<i>nslookup www.iespuertodelacruz.es</i></p>
+<img border="1px" src="./files/7.png"/>
+
+
+<h1><a id='final'>Unirse al dominio</a></h1>
+
+<p>Vamos a unir el cliente Ubuntu al PDC Windows Server usando una aplicación de entorno gráfica llamada Likewise.
+Para instalar dicha aplicación debemos copiar los repositorios pasados por los compañeros para que nos aparezca en nuestro
+sistema operativo y añadirlos al fichero <i>/etc/apt</i>. Una vez hecho esto instalamos el programa Likewise mediante el 
+comando <i>apt-get install likewise-open</i>, y <i>apt-get install likewise-open-gui</i> porque también nos hace falta ese
+paquete para tenerlo con entorno gráfico.</p>
+<img border="1px" src="./files/2.png"/>
+<img border="1px" src="./files/3.png"/>
+
+<p>Una vez instalado el programa, queremos saber dónde está y ejecutarlo para empezar a utilizarlo para unirnos al 
+PDC Windows Server. Ésto se hace a través de los comandos <i>whereis domainjoin-gui</i>y <i>domainjoin-gui</i>.</p>
+<img border="1px" src="./files/4.png"/>
+
+<p>Luego, completamos la siguiente información de configuración: 
+<ul>
+<li>Dejamos el nombre de equipo como estaba.</li>
+<li>En "Domain" ponemos el nombre de nuestro PDC.</li>
+</ul>
+</p>
+<img border="1px" src="./files/8.png"/>
+
+<p>Finalmente, nos pedirá un usuario y contraseña donde pondremos el administrador del dominio 
+y su contraseña. Luego saldrá una pantalla como que es correcto y se pide reiniciar.</p>
+<img border="1px" src="./files/9.png"/>
+<img border="1px" src="./files/10.png"/>
+<h1><a id='comprobar'>Comprobación</a></h1>
+
+<p>Desde el cliente, entramos al sistema con algún usuario del dominio y comprobamos que funciona correctamente.<br/>
+Entramos en la consola y mediante el comando <i>whoiam</i> nos muestra qué usuario somos y con el 
+<i>cat /etc/passwd|grep quintero</i> no nos muestra nada porque exactamente no hay usuario en esta máquina denominado "quintero".
+</p>
+
+<img border="1px" src="./files/12.png"/>
+
+<p>Por último, vamos al Windows Server 2008 y entramos en la carpeta "Computers", del Directorio Activo, en la que 
+tendrá que aparecer nuestra máquina GNU/Linux.</p>
+<img border="1px" src="./files/13.png"/>
+
+</body>
+</html>
