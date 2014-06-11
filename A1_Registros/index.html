@@ -1,0 +1,110 @@
+<html>
+<head>
+	<title>T&iacute;tulo del trabajo</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+</head>
+<body>
+<div style='display:table-row; padding: 10px;'>
+  <div style='float: left; width=20%; padding:10px;'>
+  <img src='./files/logo.png'/>
+  </div>
+  <div style='float: left;padding:10px'>
+  <ul>
+    <li><b>M&oacute;dulo:</b> <i>Sistemas Operativos</i></li>
+    <li><b>T&iacute;tulo del trabajo</b> <i>Registros de evento local.</i></li>
+    <li><b>Componentes del grupo:</b> <i>Isabel Quintero Sánchez</i></li>
+    <li><b>Curso Acad&eacute;mico:</b> <i>2013/2014</i></li>
+    <li><b>Fecha de entrega:</b> <i>17 de Junio de 2014</i></li>
+  </ul>
+  </div>
+</div>
+<div style='float: clear;background-color: #eeeeee; border:2px solid; border-radius:10px; padding: 10px;'>
+<a href='#bloque1'>Registro en Windows</a> | <a href='#bloque2'>Registro en GNU/Linux (GUI)</a> | 
+<a href='#final'> Registro en GNU/Linux (Comandos)</a> | <a href='#registro'>Configuración de Logrotate</a></div>
+
+<h1><a id='bloque1'>Registro en Windows</a></h1>
+
+<p>Debemos activar unas directivas de seguridad, para auditar los inicios de sesión al sistema 
+(Correctos e incorrectos).Para llegar hasta ese punto debemos abrir las <i>Herramientas administrativas-> 
+Directivas de Seguridad Local</i>.</p>
+<img border="1px" src="./files/1.png"/>
+
+<p>Luego debemos poner el nombre NETBIOS de la máquina "Quintero2", ya que he utilizado Windows7, reiniciamos la MV
+ y creamos los usuarios "alu1,alu2 y alu3".</p>
+<img border="1px" src="./files/3.png"/>
+<img border="1px" src="./files/4.png"/>
+<img border="1px" src="./files/5.png"/>
+
+<p>Hacemos las siguientes acciones:</p>
+<ul>
+<li> Entrar al sistema con alu1 de forma correcta.</li>
+<li> Intentar entrar con alu2 poniendo la clave mal.</li>
+<li>No entrar con alu3.</li>
+</ul>
+<img border="1px" src="./files/6.png"/>
+<img border="1px" src="./files/7.png"/>
+
+<p>Buscamos en el sistema, la herramienta visor de sucesos y comprobamos cómo se registran los eventos anteriores</p>
+<img border="1px" src="./files/8.png"/>
+
+
+<h1><a id='bloque2'>Registro en GNU/Linux (GUI)</a></h1>
+
+<p>Utilizamos Debian7 y le cambiamos el nombre de la máquina mediante el comando <i>hostname</i>, por "Quintero3".</p>
+<img border="1px" src="./files/9.png"/>
+
+<p>Instalamos el programa <b>Webmin</b>,como tenemos problemas de dependencias de paquetes, instalando el paquete deb,
+ ejecutamos el comando "apt-get install -f".</p>
+ <img border="1px" src="./files/10.png"/>
+ <p>Después de haber realizado ese paso, para instalarlo definitivamente usamos "dpkg -i webmin_1.690_all.deb"</p>
+  <img border="1px" src="./files/11.png"/>
+
+<p>Para iniciar el servicio Webmin, ejecutamos: "/etc/init.d/webmin start", y para acceder al programa, 
+abrimos un navegador web y ponemos "https://localhost:10000".</p>
+<img border="1px" src="./files/13.png"/>
+<img border="1px" src="./files/14.png"/>
+
+<p>Vamos a analizar los ficheros de log con la herramienta anterior. Para ello vamos a las opciones del menú "System -> System Log".</p>
+<img border="1px" src="./files/15.png"/>
+ 
+<h1><a id='final'> Registro en GNU/Linux (Comandos)</a></h1>
+
+<p><b>Configuración de Syslog</b></p>
+
+<p>Consultamos el fichero <i>/etc/rsyslog.d/50-default.conf</i>y añadimos una nueva línea 
+<i>local0.* /var/log/nombredelalumno/prueba-local.log</i>. Con el usuario root, creamos el fichero vacío 
+<i>/var/log/nombredelalumno/prueba-local.log</i>.</p>
+<img border="1px" src="./files/16.png"/>
+<img border="1px" src="./files/17.png"/>
+
+<p>Ahora debemos reiniciar el servicio rsyslog, para que se recargue la nueva configuración.</p>
+<img border="1px" src="./files/18.png"/>
+
+<p><b>Comprobar Rsyslog</b></p>
+
+<p>Para ver que el fichero log está vacío por el momento, utilizamos el comando: cat /var/log/nombredelalumno/prueba-local.log.
+Luego, usar el comando logger para generar mensajes de log en el fichero anterior. Por ejemplo: logger -p local0.info "Hola Mundo".</p>
+<img border="1px" src="./files/19.png"/>
+<img border="1px" src="./files/20.png"/>
+
+<h1><a id='final'>Configuración de Logrotate</a></h1>
+
+<p>Ahora vamos a configurar logrotate para generar rotaciones de nuestro fichero de log. 
+Para ello crearemos el fichero /etc/logrotate.d/nombre-del-alumno con el siguiente contenido:</p>
+<img border="1px" src="./files/21.png"/>
+
+<p>Vamos a generar muchos mensajes de log en el fichero de registro de eventos, lo hacemos invocando el comando 
+siguiente para aumentar el tamaño del registro de log con la información contenida en un fichero de texto:
+<i>logger -p local0.notice -t ETC-MOTD -f /etc/motd</i></p>
+<img border="1px" src="./files/25.png"/>
+
+<p>Para que se dispare la rotación de log automáticamente podemos reiniciar el equipo. Sin reiniciar el equipo, 
+podemos ejecutar manualmente el programa de rotación logrotate de la siguiente forma:<i>
+ /usr/sbin/logrotate -f /etc/logrotate.conf</i>.Comprobamos que el fichero cambia de tamaño, 
+ y que efectivamente se ha producido la rotación de los ficheros de log.</p>
+<img border="1px" src="./files/22.png"/>
+<img border="1px" src="./files/23.png"/>
+<img border="1px" src="./files/24.png"/>
+
+</body>
+</html>
